@@ -1,0 +1,27 @@
+
+name: CI Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Simular testes
+        run: |
+          mkdir reports
+          echo "Testes executados com sucesso" > reports/relatorio.txt
+
+      - name: Upload do relatório
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes
+          path: reports/
