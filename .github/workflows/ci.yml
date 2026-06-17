@@ -1,10 +1,26 @@
-- name: Criar relatório
-  run: |
-    mkdir -p reports
-    echo "Relatório de testes CI funcionando" > reports/relatorio.txt
+name: CI Pipeline
 
-- name: Upload artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: relatorio-ci
-    path: reports/
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Criar relatório
+        run: |
+          mkdir -p reports
+          echo "Relatório de testes CI funcionando" > reports/relatorio.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-ci
+          path: reports/
