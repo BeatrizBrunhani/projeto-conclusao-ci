@@ -1,0 +1,324 @@
+# Pipeline de Integração Contínua (CI/CD) com GitHub Actions
+
+## 📋 Visão Geral
+
+Este é um projeto Node.js que implementa uma **pipeline de Integração Contínua (CI)** completa utilizando **GitHub Actions**. A pipeline automatiza testes, linting, geração de relatórios e garante a qualidade do código em cada push.
+
+## 🎯 Funcionalidades da Pipeline
+
+### Tipos de Disparo (Triggers)
+
+- ✅ **Push automático**: Executa em cada push para `main` e `develop`
+- ✅ **Pull Request**: Valida código antes de merge
+- ✅ **Execução manual**: Dispara via `workflow_dispatch`
+- ✅ **Agendado**: Executa diariamente às 2:00 AM (UTC)
+
+### Recursos Implementados
+
+- ✅ Testes automatizados com Jest
+- ✅ Cobertura de código (coverage report)
+- ✅ Linting com ESLint
+- ✅ Formatação com Prettier (opcional)
+- ✅ Relatórios HTML gerados e armazenados
+- ✅ Upload de artefatos
+- ✅ Comentários automáticos em PRs
+- ✅ Suporte a múltiplas versões Node.js
+
+## 📁 Estrutura do Projeto
+
+```
+projeto/
+├── .github/
+│   └── workflows/
+│       └── ci-pipeline.yml           # Workflow principal
+├── src/
+│   ├── index.js                      # Arquivo principal
+│   └── ...                           # Seu código
+├── __tests__/
+│   └── ...                           # Testes Jest
+├── .eslintrc.json                    # Configuração ESLint
+├── jest.config.js                    # Configuração Jest
+├── package.json                      # Dependências e scripts
+├── .gitignore                        # Arquivos ignorados
+└── README.md                         # Este arquivo
+```
+
+## 🚀 Como Usar
+
+### 1. Instalação Local
+
+```bash
+# Clonar repositório
+git clone <seu-repositorio>
+cd conclusao-ci
+
+# Instalar dependências
+npm install
+```
+
+### 2. Executar Testes
+
+```bash
+# Executar testes uma vez
+npm test
+
+# Modo watch (reexecuta ao salvar)
+npm run test:watch
+
+# Gerar relatório de cobertura
+npm run test:report
+```
+
+### 3. Verificar Qualidade de Código
+
+```bash
+# Verificar linting
+npm run lint
+
+# Corrigir problemas automaticamente
+npm run lint:fix
+```
+
+### 4. Executar Pipeline Manualmente
+
+No GitHub:
+1. Acesse a aba **Actions**
+2. Selecione **CI Pipeline**
+3. Clique em **Run workflow**
+4. Selecione a branch e confirme
+
+### 5. Visualizar Resultados
+
+- Acesse **Actions** no repositório GitHub
+- Clique no workflow que rodou
+- Veja logs em tempo real
+- Baixe relatórios na seção **Artifacts**
+
+## 📊 Conceitos Principais
+
+### O que é Integração Contínua (CI)?
+
+Prática de integrar código frequentemente (várias vezes ao dia) com testes automáticos para:
+- 🔍 Detectar erros mais cedo
+- 🛡️ Manter código confiável
+- 📈 Aumentar qualidade
+- ⚡ Acelerar development
+
+### GitHub Actions
+
+Sistema de automação nativo do GitHub:
+
+| Componente | Descrição |
+|-----------|-----------|
+| **Workflow** | Arquivo YAML que define a automação |
+| **Jobs** | Tarefas que executam em paralelo ou sequencial |
+| **Steps** | Passos individuais dentro de um job |
+| **Actions** | Blocos reutilizáveis (ex: `actions/checkout`) |
+| **Triggers** | Eventos que disparam o workflow |
+
+### Matriz (Matrix Strategy)
+
+Testa código em múltiplos ambientes simultaneamente:
+
+```yaml
+strategy:
+  matrix:
+    node-version: [16.x, 18.x, 20.x]
+```
+
+Cria 3 jobs separados, um para cada versão Node.js.
+
+### Artefatos
+
+Arquivos preservados após execução do workflow:
+
+```yaml
+- uses: actions/upload-artifact@v3
+  with:
+    name: coverage-report
+    path: coverage/
+```
+
+Os artefatos podem ser baixados na interface do GitHub por 30 dias.
+
+## 📈 Entendendo os Relatórios
+
+### Cobertura de Código
+
+Métrica que indica quanto do código é testado:
+
+```
+100% - Código totalmente testado ⭐
+80-99% - Excelente cobertura ✅
+60-79% - Boa cobertura 👍
+40-59% - Cobertura insuficiente ⚠️
+<40% - Muito baixa 🚩
+```
+
+**Dica**: Alise manter > 80% de cobertura.
+
+### Relatórios Jest
+
+```
+PASS  __tests__/calculator.test.js
+  ✓ deve somar dois números (2ms)
+  ✓ deve subtrair dois números (1ms)
+  ✓ deve multiplicar dois números (1ms)
+
+Test Suites: 1 passed, 1 total
+Tests: 3 passed, 3 total
+Coverage: 92% Statements | 88% Branches | 90% Functions | 92% Lines
+```
+
+## 🔧 Arquivos de Configuração
+
+### jest.config.js
+
+```javascript
+module.exports = {
+  testEnvironment: 'node',
+  collectCoverageFrom: ['src/**/*.js'],
+  coveragePathIgnorePatterns: ['/node_modules/'],
+  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js']
+};
+```
+
+### .eslintrc.json
+
+```json
+{
+  "env": {
+    "node": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  }
+}
+```
+
+## 📝 Exemplos
+
+### Teste Simples
+
+**__tests__/calculator.test.js**
+```javascript
+function add(a, b) {
+  return a + b;
+}
+
+describe('Calculator', () => {
+  test('deve somar dois números', () => {
+    expect(add(2, 3)).toBe(5);
+  });
+
+  test('deve somar números negativos', () => {
+    expect(add(-2, -3)).toBe(-5);
+  });
+
+  test('deve somar zero', () => {
+    expect(add(0, 5)).toBe(5);
+  });
+});
+```
+
+### Workflow Completo
+
+```yaml
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linter
+        run: npm run lint
+      
+      - name: Run tests with coverage
+        run: npm run test:report
+      
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report-node-${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 30
+```
+
+## 🐛 Troubleshooting
+
+| Problema | Solução |
+|----------|---------|
+| **npm install falha** | Execute `npm ci` em vez de `npm install` na pipeline |
+| **Testes falham localmente mas passam na CI** | Verifique versão Node.js com `node --version` |
+| **Linter reporta erros** | Execute `npm run lint:fix` para corrigir automaticamente |
+| **Artefatos não aparecem** | Use `if: always()` para upload mesmo com falhas |
+| **Workflow não dispara** | Verifique a sintaxe YAML e permissões da branch |
+
+## 📚 Recursos Úteis
+
+- [Documentação GitHub Actions](https://docs.github.com/en/actions)
+- [Jest Documentation](https://jestjs.io/)
+- [ESLint Guide](https://eslint.org/docs/rules/)
+- [Node.js Best Practices](https://nodejs.org/en/docs/guides/)
+- [Cron Expression Generator](https://crontab.guru/)
+- [GitHub Actions Marketplace](https://github.com/marketplace?type=actions)
+
+## 📋 Checklist para Deploy
+
+- [ ] Testes passam localmente
+- [ ] Cobertura de código > 80%
+- [ ] Linting sem erros (`npm run lint`)
+- [ ] Commit message descritiva
+- [ ] Push para branch de desenvolvimento
+- [ ] Aguardar pipeline completar
+- [ ] Criar Pull Request
+- [ ] Revisar comentários automáticos
+- [ ] Merge quando aprovado
+
+## 👥 Contribuindo
+
+1. Fork o projeto
+2. Crie uma feature branch (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob licença ISC.
+
+## 👨‍💻 Autor
+
+Beatriz Chagas Brunhani
+

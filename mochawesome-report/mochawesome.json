@@ -1,0 +1,234 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-06-11T18:07:41.293Z",
+    "end": "2026-06-11T18:07:41.299Z",
+    "duration": 6,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3360a914-fb21-4c4f-a97b-984bc494658f",
+      "title": "",
+      "fullFile": "C:\\Users\\Weback\\Documents\\Projetos1\\Desafio-2-trabalho-de-conclus-o\\tests\\pagamento.test.js",
+      "file": "\\tests\\pagamento.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "070658a7-6158-44fa-82d2-c9d4f1fc7a78",
+          "title": "ServicoDePagamento",
+          "fullFile": "C:\\Users\\Weback\\Documents\\Projetos1\\Desafio-2-trabalho-de-conclus-o\\tests\\pagamento.test.js",
+          "file": "\\tests\\pagamento.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"ServicoDePagamento\"",
+              "fullTitle": "ServicoDePagamento \"before each\" hook in \"ServicoDePagamento\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "servico = new ServicoDePagamento();",
+              "err": {},
+              "uuid": "ed6d189f-552e-4ac4-beb2-b6073fb2ddb3",
+              "parentUUID": "070658a7-6158-44fa-82d2-c9d4f1fc7a78",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "a613f61e-a7b6-4855-bef0-2502c48c0c6e",
+              "title": "pagar()",
+              "fullFile": "C:\\Users\\Weback\\Documents\\Projetos1\\Desafio-2-trabalho-de-conclus-o\\tests\\pagamento.test.js",
+              "file": "\\tests\\pagamento.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "deve adicionar um pagamento com categoria \"cara\" quando valor > 100",
+                  "fullTitle": "ServicoDePagamento pagar() deve adicionar um pagamento com categoria \"cara\" quando valor > 100",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "servico.pagar('0987-7656-3475', 'Samar', 156.87);\nconst pagamento = servico.consultarUltimoPagamento();\n\nassert.equal(pagamento.categoria, 'cara');",
+                  "err": {},
+                  "uuid": "c4ffd13c-e6d8-4702-8cea-de4a945ef13f",
+                  "parentUUID": "a613f61e-a7b6-4855-bef0-2502c48c0c6e",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "deve adicionar um pagamento com categoria \"padrão\" quando valor <= 100",
+                  "fullTitle": "ServicoDePagamento pagar() deve adicionar um pagamento com categoria \"padrão\" quando valor <= 100",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "servico.pagar('1234-5678-9012', 'Empresa A', 75.50);\nconst pagamento = servico.consultarUltimoPagamento();\n\nassert.equal(pagamento.categoria, 'padrão');",
+                  "err": {},
+                  "uuid": "13d0ed15-8309-42e6-b4d0-cc7bed200ee6",
+                  "parentUUID": "a613f61e-a7b6-4855-bef0-2502c48c0c6e",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "deve armazenar as propriedades corretas do pagamento",
+                  "fullTitle": "ServicoDePagamento pagar() deve armazenar as propriedades corretas do pagamento",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "servico.pagar('0987-7656-3475', 'Samar', 156.87);\nconst pagamento = servico.consultarUltimoPagamento();\n\nassert.equal(pagamento.codigoBarras, '0987-7656-3475');\nassert.equal(pagamento.empresa, 'Samar');\nassert.equal(pagamento.valor, 156.87);",
+                  "err": {},
+                  "uuid": "1f171c9c-c0f1-46fd-8a4f-bc07302a101c",
+                  "parentUUID": "a613f61e-a7b6-4855-bef0-2502c48c0c6e",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "c4ffd13c-e6d8-4702-8cea-de4a945ef13f",
+                "13d0ed15-8309-42e6-b4d0-cc7bed200ee6",
+                "1f171c9c-c0f1-46fd-8a4f-bc07302a101c"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "819f5231-3ce9-486e-a4c2-a698810b4523",
+              "title": "consultarUltimoPagamento()",
+              "fullFile": "C:\\Users\\Weback\\Documents\\Projetos1\\Desafio-2-trabalho-de-conclus-o\\tests\\pagamento.test.js",
+              "file": "\\tests\\pagamento.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "deve retornar null quando não há pagamentos",
+                  "fullTitle": "ServicoDePagamento consultarUltimoPagamento() deve retornar null quando não há pagamentos",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const resultado = servico.consultarUltimoPagamento();\nassert.equal(resultado, null);",
+                  "err": {},
+                  "uuid": "729d2989-3dac-4a35-96c4-6697e2064c18",
+                  "parentUUID": "819f5231-3ce9-486e-a4c2-a698810b4523",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "deve retornar o último pagamento quando há múltiplos pagamentos",
+                  "fullTitle": "ServicoDePagamento consultarUltimoPagamento() deve retornar o último pagamento quando há múltiplos pagamentos",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "servico.pagar('1111-1111-1111', 'Empresa A', 50);\nservico.pagar('2222-2222-2222', 'Empresa B', 150);\nservico.pagar('3333-3333-3333', 'Empresa C', 75);\n\nconst ultimo = servico.consultarUltimoPagamento();\nassert.equal(ultimo.codigoBarras, '3333-3333-3333');\nassert.equal(ultimo.empresa, 'Empresa C');",
+                  "err": {},
+                  "uuid": "b8b572cd-9311-4850-ba36-266b42163bba",
+                  "parentUUID": "819f5231-3ce9-486e-a4c2-a698810b4523",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "729d2989-3dac-4a35-96c4-6697e2064c18",
+                "b8b572cd-9311-4850-ba36-266b42163bba"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.2"
+    }
+  }
+}
