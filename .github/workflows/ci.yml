@@ -1,0 +1,17 @@
+name: CI Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Teste CI
+        run: echo "CI funcionando corretamente"
